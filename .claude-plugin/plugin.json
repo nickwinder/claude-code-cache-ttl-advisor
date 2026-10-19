@@ -1,5 +1,5 @@
 {
   "name": "claude-code-cache-ttl-advisor",
   "description": "Recommends the cheaper Claude Code prompt-cache TTL (5m or 1h) from your session transcripts",
-  "author": { "name": "Nick Winder" }
+  "author": { "name": "nickwinder" }
 }

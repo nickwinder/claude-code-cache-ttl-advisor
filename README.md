@@ -33,7 +33,6 @@ claude plugin marketplace add nickwinder/claude-code-cache-ttl-advisor
 claude plugin install claude-code-cache-ttl-advisor@claude-code-cache-ttl-advisor
 ```
 
-The repository is private: git on your machine must already be able to clone it (`gh auth login && gh auth setup-git`, or an SSH key in ssh-agent).
 
 ## Use
 
