@@ -35,15 +35,6 @@ claude plugin install claude-code-cache-ttl-advisor@claude-code-cache-ttl-adviso
 
 The repository is private: git on your machine must already be able to clone it (`gh auth login && gh auth setup-git`, or an SSH key in ssh-agent).
 
-## Without the plugin system
-
-Clone the repository and copy the skill folder:
-
-```bash
-git clone git@github.com:nickwinder/claude-code-cache-ttl-advisor.git
-cp -R claude-code-cache-ttl-advisor/skills/claude-code-cache-ttl-advisor ~/.claude/skills/
-```
-
 ## Use
 
 Ask Claude "what prompt cache TTL should I use?", or run the script directly:
