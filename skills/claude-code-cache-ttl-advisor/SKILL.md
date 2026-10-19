@@ -1,14 +1,14 @@
 ---
-name: cache-ttl-advisor
+name: claude-code-cache-ttl-advisor
 description: Replay every Claude Code session transcript (main sessions, subagents, workflow agents, nested subagents) and price prompt caching under a 5-minute and a 1-hour TTL, then recommend CLAUDE_CODE_PROMPT_CACHE_TTL and CLAUDE_CODE_SUBAGENT_PROMPT_CACHE_TTL. Use when asked "what cache TTL should I use", "am I losing tokens to cache expiry", "should subagents use a 1h cache", or to audit prompt-cache cost.
 ---
 
-# Cache TTL advisor
+# Claude Code cache TTL advisor
 
 Run:
 
 ```bash
-python3 "${CLAUDE_SKILL_DIR:-$HOME/.claude/skills/cache-ttl-advisor}/scripts/ttl_advisor.py" [--days N] [--root ~/.claude/projects]
+python3 "${CLAUDE_SKILL_DIR:-$HOME/.claude/skills/claude-code-cache-ttl-advisor}/scripts/ttl_advisor.py" [--days N] [--root ~/.claude/projects]
 ```
 
 It prints a markdown table per TTL bucket (`main`, `subagent`) with ALL, per-month and per-model rows, then one recommended setting per bucket. Show the table to the user as is, then state the two recommendations.
