@@ -1,6 +1,6 @@
 ---
 name: claude-code-cache-ttl-advisor
-description: Replay every Claude Code session transcript (main sessions, subagents, workflow agents, nested subagents) and price prompt caching under a 5-minute and a 1-hour TTL, then recommend CLAUDE_CODE_PROMPT_CACHE_TTL and CLAUDE_CODE_SUBAGENT_PROMPT_CACHE_TTL. Use when asked "what cache TTL should I use", "am I losing tokens to cache expiry", "should subagents use a 1h cache", or to audit prompt-cache cost.
+description: Read the token usage already logged in every Claude Code session transcript (main sessions, subagents, workflow agents, nested subagents) and price prompt caching under a 5-minute and a 1-hour TTL, then recommend CLAUDE_CODE_PROMPT_CACHE_TTL and CLAUDE_CODE_SUBAGENT_PROMPT_CACHE_TTL. Use when asked "what cache TTL should I use", "am I losing tokens to cache expiry", "should subagents use a 1h cache", or to audit prompt-cache cost.
 ---
 
 # Claude Code cache TTL advisor
@@ -8,12 +8,14 @@ description: Replay every Claude Code session transcript (main sessions, subagen
 Run:
 
 ```bash
-python3 "${CLAUDE_SKILL_DIR:-$HOME/.claude/skills/claude-code-cache-ttl-advisor}/scripts/ttl_advisor.py" [--days N] [--root ~/.claude/projects]
+python3 "${CLAUDE_SKILL_DIR}/scripts/ttl_advisor.py" [--days N] [--root ~/.claude/projects]
 ```
 
 It prints a markdown table per TTL bucket (`main`, `subagent`) with ALL, per-month and per-model rows, then one recommended setting per bucket. Show the table to the user as is, then state the two recommendations.
 
 ## How it works
+
+- It makes no API calls and costs no tokens. It only reads the `usage` fields that Claude Code already wrote to the local `.jsonl` transcripts, then does arithmetic.
 
 - Claude Code has two TTL buckets: the main conversation (`<project>/<session>.jsonl`) and everything else (any `.jsonl` deeper, found recursively — subagents, `subagents/workflows/…`, nested agents). Each takes only `5m` or `1h`.
 - Per API call (deduplicated by `message.id`), it reads `cache_creation_input_tokens`, `cache_read_input_tokens`, and which TTL ran (`cache_creation.ephemeral_{5m,1h}_input_tokens`).

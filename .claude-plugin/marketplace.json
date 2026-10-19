@@ -1,0 +1,5 @@
+{
+  "name": "claude-code-cache-ttl-advisor",
+  "owner": { "name": "Nick Winder" },
+  "plugins": [{ "name": "claude-code-cache-ttl-advisor", "source": "./" }]
+}

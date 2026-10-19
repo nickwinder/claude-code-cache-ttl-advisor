@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Replay Claude Code transcripts and price prompt caching under a 5m and a 1h TTL.
+"""Read the usage logged in Claude Code transcripts (no API calls) and price prompt caching under a 5m and a 1h TTL.
 
 Walks every *.jsonl under the projects dir at any depth, so subagents, workflow
 agents and subagents of subagents are all included. Claude Code has two TTL
