@@ -63,12 +63,15 @@ def replay(calls):
     write and read depending on which TTL actually ran.
     """
     prev = None
+    ran_1h = False  # a read-only call reports no TTL; it inherits the last write's
     for t, u, model in calls:
         base, rmul = price(model)
         w = u.get("cache_creation_input_tokens") or 0
         r = u.get("cache_read_input_tokens") or 0
         cc = u.get("cache_creation") or {}
-        ran_1h = (cc.get("ephemeral_1h_input_tokens") or 0) > (cc.get("ephemeral_5m_input_tokens") or 0)
+        h1, m5 = cc.get("ephemeral_1h_input_tokens") or 0, cc.get("ephemeral_5m_input_tokens") or 0
+        if h1 or m5:
+            ran_1h = h1 > m5
         w5, r5, w1, r1 = w, r, w, r
         hit = False
         if prev:
