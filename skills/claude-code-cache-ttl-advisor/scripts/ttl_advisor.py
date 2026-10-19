@@ -54,7 +54,7 @@ def api_calls(path):
     return sorted(seen.values(), key=lambda c: c[0])
 
 
-def replay(calls):
+def price_both_ttls(calls):
     """Yield (time, model, cost_5m, cost_1h, gap_hit) per call, in dollars.
 
     Calls whose gap since the previous call is outside (5m, 1h] cost the same
@@ -103,7 +103,7 @@ def main():
         bucket = "main" if len(p.relative_to(root).parts) == 2 else "subagent"
         a5 = a1 = 0.0
         counted = False
-        for t, model, c5, c1, hit in replay(api_calls(p)):
+        for t, model, c5, c1, hit in price_both_ttls(api_calls(p)):
             if since and t < since:
                 continue
             counted = True
